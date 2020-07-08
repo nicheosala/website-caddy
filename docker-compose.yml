@@ -1,0 +1,13 @@
+version: "3"
+services:
+    webserver:
+        image: caddy:alpine
+        container_name: nicheosala.tk
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./Caddyfile:/etc/caddy/Caddyfile
+            - ./caddy_secrets/config:/config
+            - ./caddy_secrets/data:/data
+            - ./website:/website
