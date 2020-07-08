@@ -5,7 +5,7 @@
 }
 
 www.nicheotest.tk {
-    redir https://nicheosala.tk{uri}
+    redir https://nicheotest.tk{uri}
 }
 
 nicheotest.tk {
