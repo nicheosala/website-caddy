@@ -1,17 +1,18 @@
 {
     # Add this line when you want to get a "fake" certificate for testing purposes
-    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-    experimental_http3
+    #  acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+    
+    # experimental_http3
 }
 
-www.nicheotest.tk {
-    redir https://nicheotest.tk{uri}
+www.nicheosala.tk {
+    redir https://nicheosala.tk{uri}
 }
 
-nicheotest.tk {
+nicheosala.tk {
 
     file_server
-    root * /website
+    root * website
     encode zstd gzip
 
     tls {
@@ -21,9 +22,9 @@ nicheotest.tk {
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
     header {
         X-Content-Type-Options      "nosniff"
-        Referrer-Policy             "no-referrer"     # using this header, do I have to specify "noreferrer" in any 'a' link?
+        Referrer-Policy             "no-referrer"
         Content-Security-Policy     "default-src 'self'; frame-ancestors 'none'"
-        Strict-Transport-Security   "max-age=31536000; includeSubDomains; preload"
+        Strict-Transport-Security   "max-age=63072000; includeSubDomains; preload"
         Feature-Policy              "accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; camera 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; fullscreen 'self'; geolocation 'none'; gyroscope 'none'; layout-animations 'none'; legacy-image-formats 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; notifications 'none'; oversized-images 'none'; payment 'none'; picture-in-picture 'none'; push 'none'; speaker 'none'; sync-xhr 'none'; usb 'none'; vibrate 'none'; wake-lock 'none', xr-spatial-tracking 'none'"
         -Server
     }
