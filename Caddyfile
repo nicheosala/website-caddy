@@ -19,6 +19,11 @@ nicheosala.tk {
         protocols tls1.3
     }
 
+    handle_errors {
+        rewrite * 404.html
+        file_server
+    }
+
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
     header {
         X-Content-Type-Options      "nosniff"
