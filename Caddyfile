@@ -2,7 +2,17 @@
     # Add this line when you want to get a "fake" certificate for testing purposes
     # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
    
-    experimental_http3
+    servers {
+	protocol {
+	    experimental_http3
+	    strict_sni_host
+	}
+    }
+}
+
+pihole.nicheosala.tk {
+    reverse_proxy localhost:1080
+    encode zstd gzip
 }
 
 www.nicheosala.tk {
