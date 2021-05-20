@@ -1,46 +1,45 @@
 {
-    # Add this line when you want to get a "fake" certificate for testing purposes
-    # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-   
-    servers {
-	protocol {
-	    experimental_http3
-	    strict_sni_host
+	# Add this line when you want to get a "fake" certificate for testing purposes
+	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+
+	servers {
+		protocol {
+			experimental_http3
+			strict_sni_host
+		}
 	}
-    }
 }
 
 pihole.nicheosala.tk {
-    reverse_proxy localhost:1080
-    encode zstd gzip
+	reverse_proxy localhost:81
+	encode zstd gzip
 }
 
 www.nicheosala.tk {
-    redir https://nicheosala.tk{uri}
+	redir https://nicheosala.tk{uri}
 }
 
 nicheosala.tk {
+	file_server
+	root * /home/pi/caddy/website
+	encode zstd gzip
 
-    file_server
-    root * /home/pi/caddy/website
-    encode zstd gzip
+	tls {
+		protocols tls1.3
+	}
 
-    tls {
-        protocols tls1.3
-    }
+	handle_errors {
+		rewrite * 404.html
+		file_server
+	}
 
-    handle_errors {
-        rewrite * 404.html
-        file_server
-    }
-
-    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
-    header {
-        X-Content-Type-Options      "nosniff"
-        Referrer-Policy             "no-referrer"
-        Content-Security-Policy     "default-src 'self'; frame-ancestors 'none'"
-        Strict-Transport-Security   "max-age=63072000; includeSubDomains; preload"
-        Feature-Policy              "accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; camera 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; fullscreen 'self'; geolocation 'none'; gyroscope 'none'; layout-animations 'none'; legacy-image-formats 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; notifications 'none'; oversized-images 'none'; payment 'none'; picture-in-picture 'none'; push 'none'; speaker 'none'; sync-xhr 'none'; usb 'none'; vibrate 'none'; wake-lock 'none', xr-spatial-tracking 'none'"
-        -Server
-    }
+	# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		Content-Security-Policy "default-src 'self'; frame-ancestors 'none'"
+		Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+		Feature-Policy "accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; camera 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; fullscreen 'self'; geolocation 'none'; gyroscope 'none'; layout-animations 'none'; legacy-image-formats 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; notifications 'none'; oversized-images 'none'; payment 'none'; picture-in-picture 'none'; push 'none'; speaker 'none'; sync-xhr 'none'; usb 'none'; vibrate 'none'; wake-lock 'none', xr-spatial-tracking 'none'"
+		-Server
+	}
 }
